@@ -1,0 +1,24 @@
+:root {
+    --main-bg-color: rgb(0,0,0);
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background-color: var(--main-bg-color);
+
+    margin: 0;
+    padding: 0;
+}
+
+div{
+    margin: 0 auto;
+
+    width: fit-content;
+    height: fit-content;
+    background-color: gray;
+}
+
+#canvas{
+    background-color: var(--main-bg-color);
+}
