@@ -1,8 +1,8 @@
 :root {
-    --main-bg-color: rgb(0,0,0);
+    --main-bg-color: rgb(0, 0, 0);
 }
 
-body{
+body {
     height: 100%;
     width: 100%;
     background-color: var(--main-bg-color);
@@ -11,14 +11,16 @@ body{
     padding: 0;
 }
 
-div{
-    margin: 0 auto;
+#canvas {
+    position: absolute;
+    inset: 0;
 
-    width: fit-content;
-    height: fit-content;
-    background-color: gray;
+    background-color: var(--main-bg-color);
 }
 
-#canvas{
-    background-color: var(--main-bg-color);
+@media (orientation: landscape) {
+    #canvas {
+        transform: rotate(90deg);
+        transform-origin: 50vw 50vw;
+    }
 }
