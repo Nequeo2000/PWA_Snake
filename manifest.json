@@ -3,12 +3,16 @@
     "short_name": "PWA Snake",
     "icons": [
         {
-            "src": "./icon.png",
-            "sizes": "100x100"
+            "src": "./images/icon.png",
+            "sizes": "100x100",
+            "type": "image/png",
+            "purpose": "any"
         },
         {
-            "src": "./icon2.png",
-            "sizes": "200x200"
+            "src": "./images/icon2.png",
+            "sizes": "200x200",
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     "start_url": "./",
