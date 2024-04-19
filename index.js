@@ -55,8 +55,8 @@ function move() {
 
     // check if hit wall
     if (snake[0][0] < 0 || snake[0][1] < 0 || snake[0][0] > canvas.width-10 || snake[0][1] > canvas.height-10) {
-        resetSnake();
         rewardSnake(-1);
+        resetSnake();
         stepCount = 0;
         return;
     }
@@ -81,6 +81,7 @@ function move() {
     else if (hitTail) {
         snake = snake.slice(0, 3);
         rewardSnake(-1);
+        resetSnake();
         stepCount = 0;
     }
     else {
@@ -153,6 +154,7 @@ function rewardSnake(n) {
 function resetSnake() {
     let center = [Math.floor(canvas.width/20)*10,Math.floor(canvas.height/20)*10];
     snake = [center, [center[0],center[1]+10], [center[0],center[1]+20]];
+    inputHistory = [];
 }
 
 function updateHistory(newValue){
