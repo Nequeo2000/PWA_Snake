@@ -6,10 +6,7 @@ canvas.height = Math.floor(window.innerHeight / 10) * 10;
 
 let snakeBrain = {};
 let snake = [];
-let apple = [
-    Math.floor(Math.random() * canvas.width / 10) * 10,
-    Math.floor(Math.random() * canvas.height / 10) * 10
-];
+let apple = [];
 let inputHistory = [];
 let stepCount = 0;
 
@@ -32,6 +29,7 @@ function draw() {
 
     requestAnimationFrame(draw);
 }
+spawnApple();
 resetSnake();
 requestAnimationFrame(draw);
 
@@ -53,7 +51,7 @@ function move() {
     snake = [newPosition, ...snake];
 
     // check if hit wall
-    if (snake[0][0] < 0 || snake[0][1] < 0 || snake[0][0] > canvas.width-10 || snake[0][1] > canvas.height-10) {
+    if (snake[0][0] < 0 || snake[0][1] < 0 || snake[0][0] > canvas.width - 10 || snake[0][1] > canvas.height - 10) {
         rewardSnake(-1);
         resetSnake();
         stepCount = 0;
@@ -71,9 +69,7 @@ function move() {
     }
 
     if (newPosition[0] == apple[0] && newPosition[1] == apple[1]) {
-        apple = [];
-        apple[0] = Math.floor(Math.random() * canvas.width / 10) * 10;
-        apple[1] = Math.floor(Math.random() * canvas.height / 10) * 10;
+        spawnApple();
         rewardSnake(1);
         stepCount = 0;
     }
@@ -88,9 +84,10 @@ function move() {
     }
 
     stepCount++;
-    if (stepCount > 2 * (canvas.width / 10 + canvas.height / 10)) {
+    if (snake.length < 10 && stepCount > canvas.width / 10 + canvas.height / 10 
+    || snake.length >= 10 && stepCount > (canvas.width / 10) * (canvas.height / 10)) {
         rewardSnake(-1);
-        //stepCount = 0;
+        stepCount = 0;
     }
 }
 
@@ -151,24 +148,38 @@ function rewardSnake(n) {
 }
 
 function resetSnake() {
-    let center = [Math.floor(canvas.width/20)*10,Math.floor(canvas.height/20)*10];
-    snake = [center, [center[0],center[1]+10], [center[0],center[1]+20]];
+    let center = [Math.floor(canvas.width / 20) * 10, Math.floor(canvas.height / 20) * 10];
+    snake = [center, [center[0], center[1] + 10], [center[0], center[1] + 20]];
     inputHistory = [];
 }
 
-function updateHistory(newValue){
-    inputHistory = [...inputHistory.slice(0,4)];
+function spawnApple() {
+    apple[0] = Math.floor(Math.random() * canvas.width / 10) * 10;
+    apple[1] = Math.floor(Math.random() * canvas.height / 10) * 10;
+
+    // if apple on snake move the apple
+    while (ctx.getImageData(apple[0], apple[1], 1, 1).data[0] != 0
+        || ctx.getImageData(apple[0], apple[1], 1, 1).data[1] != 0
+        || ctx.getImageData(apple[0], apple[1], 1, 1).data[2] != 0) {
+        apple[0] = (apple[0] + 10) % canvas.width;
+        if (apple[0] == 0)
+            apple[1] = (apple[1] + 10) % canvas.height;
+    }
+}
+
+function updateHistory(newValue) {
+    inputHistory = [...inputHistory.slice(0, 4)];
     let doubleIndex = inputHistory.indexOf(newValue);
-    if(doubleIndex != -1){
-        inputHistory = [newValue, ...(inputHistory.slice(0,doubleIndex)), ...(inputHistory.slice(doubleIndex+1))];
+    if (doubleIndex != -1) {
+        inputHistory = [newValue, ...(inputHistory.slice(0, doubleIndex)), ...(inputHistory.slice(doubleIndex + 1))];
     } else {
         inputHistory = [newValue, ...inputHistory.slice(0, 4)];
     }
 }
 
-function makeDecision(inputs){
-    if(snakeBrain[inputs] == undefined)
-        snakeBrain[inputs] = [0,0,0,0];
+function makeDecision(inputs) {
+    if (snakeBrain[inputs] == undefined)
+        snakeBrain[inputs] = [0, 0, 0, 0];
     return snakeBrain[inputs].indexOf(Math.max(...snakeBrain[inputs]));
 }
 

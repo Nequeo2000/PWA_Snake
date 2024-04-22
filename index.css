@@ -18,7 +18,7 @@ body {
     background-color: var(--main-bg-color);
 }
 
-@media (orientation: landscape) {
+@media (max-width: 100vh) {
     #canvas {
         transform: rotate(90deg);
         transform-origin: 50vw 50vw;
