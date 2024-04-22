@@ -84,7 +84,7 @@ function move() {
     }
 
     stepCount++;
-    if (snake.length < 10 && stepCount > canvas.width / 10 + canvas.height / 10 
+    if (snake.length < 10 && stepCount > canvas.width / 5 + canvas.height / 5
     || snake.length >= 10 && stepCount > (canvas.width / 10) * (canvas.height / 10)) {
         rewardSnake(-1);
         stepCount = 0;
