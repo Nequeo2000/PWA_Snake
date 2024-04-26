@@ -192,7 +192,7 @@ function makeDecision(inputs) {
 const registerServiceWorker = () => {
     if ("serviceWorker" in navigator) {
         try {
-            navigator.serviceWorker.register("/sw.js").then(e => { console.log(e) });
+            navigator.serviceWorker.register("./sw.js").then(e => { console.log(e) });
 
         } catch (error) {
             console.error(`Registration failed with ${error}`);
