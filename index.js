@@ -15,7 +15,7 @@ function draw() {
     move();
 
     // draw background
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // draw snake and apple
