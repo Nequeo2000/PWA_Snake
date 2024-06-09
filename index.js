@@ -179,7 +179,7 @@ function updateHistory(newValue) {
 
 function makeDecision(inputs) {
     if (snakeBrain[inputs] == undefined)
-        snakeBrain[inputs] = [Math.random()*10, Math.random()*10, Math.random()*10, Math.random()*10];
+        snakeBrain[inputs] = [Math.random(), Math.random(), Math.random(), Math.random()];
     return snakeBrain[inputs].indexOf(Math.max(...snakeBrain[inputs]));
 }
 
