@@ -1,10 +1,9 @@
 let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+let ctx = canvas.getContext("2d", { willReadFrequently: true });
 
 canvas.width = Math.floor(window.innerWidth / 10) * 10;
 canvas.height = Math.floor(window.innerHeight / 10) * 10;
 
-let snakeBrain = {};
 let snake = [];
 let apple = [];
 let inputHistory = [];
@@ -142,8 +141,10 @@ function getInputs() {
 function rewardSnake(n) {
     for (let i = 0; i < inputHistory.length; i++) {
         let inputs = inputHistory[i];
-        let output = snakeBrain[inputs].indexOf(Math.max(...snakeBrain[inputs]))
-        snakeBrain[inputHistory[i]][output] += n * Math.pow(4, -i);
+        let maxIndex = makeDecision(inputs);
+        let options = JSON.parse(window.localStorage.getItem(inputs));
+        options[maxIndex] += n*Math.pow(4, -i);
+        window.localStorage.setItem(inputs, JSON.stringify(options) );
     }
 }
 
@@ -178,9 +179,12 @@ function updateHistory(newValue) {
 }
 
 function makeDecision(inputs) {
-    if (snakeBrain[inputs] == undefined)
-        snakeBrain[inputs] = [Math.random(), Math.random(), Math.random(), Math.random()];
-    return snakeBrain[inputs].indexOf(Math.max(...snakeBrain[inputs]));
+    let options = JSON.parse(window.localStorage.getItem(inputs));
+    if(!options){
+        window.localStorage.setItem(inputs, JSON.stringify([Math.random(), Math.random(), Math.random(), Math.random()]) );
+        options = JSON.parse(window.localStorage.getItem(inputs));
+    }
+    return options.indexOf(Math.max(...options));
 }
 
 
