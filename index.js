@@ -106,25 +106,25 @@ function getInputs() {
         (snake[0][1] > canvas.height - 10) ? 1 : 0,
         (snake[0][1] == 0) ? 1 : 0
     ];
-    for (let i = 1; i < snake.length; i++) {
+    for (let i = 1; i < snake.length-1; i++) {
         if (snake[0][0] + 10 == snake[i][0] && snake[0][1] == snake[i][1]) {
             arr[0] = 1;
             break;
         }
     }
-    for (let i = 1; i < snake.length; i++) {
+    for (let i = 1; i < snake.length-1; i++) {
         if (snake[0][0] - 10 == snake[i][0] && snake[0][1] == snake[i][1]) {
             arr[1] = 1;
             break;
         }
     }
-    for (let i = 1; i < snake.length; i++) {
+    for (let i = 1; i < snake.length-1; i++) {
         if (snake[0][1] + 10 == snake[i][1] && snake[0][0] == snake[i][0]) {
             arr[2] = 1;
             break;
         }
     }
-    for (let i = 1; i < snake.length; i++) {
+    for (let i = 1; i < snake.length-1; i++) {
         if (snake[0][1] - 10 == snake[i][1] && snake[0][0] == snake[i][0]) {
             arr[3] = 1;
             break;
