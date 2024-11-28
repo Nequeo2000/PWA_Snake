@@ -101,9 +101,9 @@ function getInputs() {
 
     // next to tail or wall?
     let arr = [
-        (snake[0][0] > canvas.width - 10) ? 1 : 0,
+        (snake[0][0] >= canvas.width - 10) ? 1 : 0,
         (snake[0][0] == 0) ? 1 : 0,
-        (snake[0][1] > canvas.height - 10) ? 1 : 0,
+        (snake[0][1] >= canvas.height - 10) ? 1 : 0,
         (snake[0][1] == 0) ? 1 : 0
     ];
     for (let i = 1; i < snake.length-1; i++) {
